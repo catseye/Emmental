@@ -1,8 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- encoding: UTF-8 -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>The Emmental Programming Language</title>
+  <!-- begin html doc dynamic markup -->
+  <script type="text/javascript" src="/contrib/jquery-1.6.4.min.js"></script>
+  <script type="text/javascript" src="/scripts/documentation.js"></script>
+  <!-- end html doc dynamic markup -->
 </head>
 <body>
 
@@ -54,7 +59,7 @@ defined in terms of itself, you'll need some other source of "understanding
 how it works" to make it complete.  This understanding might come
 from an implementation in some other programming language, or a specification
 in some formal language, or a description in some natural language, or simply
-from intuition &mdash; but it has to come from somewhere.</p>
+from intuition — but it has to come from somewhere.</p>
 
 <p>Assuming that we do have that external source of understanding, the
 meta-circular interpreter can come in quite handy in codifying the semantics
@@ -113,7 +118,7 @@ are not defined.)</p>
 
 <p>The operations can be thought of, abstractly, as functions which
 transform program states.  Or they can be thought of, concretely, as
-segments of code &mdash; mini-programs which implement these functions.
+segments of code — mini-programs which implement these functions.
 In the case of a meta-circular interpreter, these mini-programs would be written
 <em>in the language being interpreted</em>.</p>
 
@@ -145,8 +150,8 @@ symbols to operations, and that operations in Emmental are defined
 to describe interpreters:</p>
 
 <pre>
-% &rarr; XYZ+*!
-&amp; &rarr; 'ap'ag'ag
+% → XYZ+*!
+&amp; → 'ap'ag'ag
 </pre>
 
 <p>That is, the symbol <code>%</code>, when encountered in an Emmental
@@ -163,14 +168,14 @@ These cases use whichever interpreter happens to be in force in that point in ti
 <p>The inital Emmental interpreter is defined as follows:</p>
 
 <pre>
-a &rarr; a
-b &rarr; b
-c &rarr; c
+a → a
+b → b
+c → c
 ...
 </pre>
 
 <p>That is, for every symbol <var>x</var> in the ASCII set,
-<var>x</var> <code>&rarr;</code> <var>x</var>.</p>
+<var>x</var> <code>→</code> <var>x</var>.</p>
 
 <p>Doesn't tell us a lot about Emmental's semantics, does it?  No.
 Nothing at all, really.  But remember what I said about needing an external
@@ -270,7 +275,7 @@ as popping a string, just that the string is interpreted as a program.</p>
 <p><code>!</code> (sometimes called "supplant")
 pops a symbol, which we call <var>s</var>, off the stack.
 Then it pops a program <var>t</var>.
-It then inserts the association <var>s</var> <code>&rarr;</code> <var>t</var> into the
+It then inserts the association <var>s</var> <code>→</code> <var>t</var> into the
 interpreter definition.  This overwrites whatever mapping of <var>s</var> might have
 been in the interpreter definition previously.  This new interpreter definition
 is used for all subsequent execution (until it is changed again, of course.)</p>
@@ -378,8 +383,8 @@ since we can push arbitrary values onto the stack before any
 program.])</p>
 
 <p>However, if it turns out that we need "duplicate" or "discard" in order
-to write routines that can handle a variable-sized queue &mdash; and that
-strikes me as likely &mdash; then it looks like we have a severe problem.</p>
+to write routines that can handle a variable-sized queue — and that
+strikes me as likely — then it looks like we have a severe problem.</p>
 
 <p>Here's one way I could try to deal with it.  I could say that the queue
 is <em>local</em> to the operation being defined (or the main program.)
@@ -407,7 +412,7 @@ the language formed by removing the <code>:</code> operation from
 Emmental is Turing-complete.  (Equivalently, prove that the set of
 Emmental programs that begin with <code>;#0#58!</code> is Turing-complete.
 The nice thing about Emmental is that you can always shoot yourself in
-the foot &mdash; until you erase your pistol, that is.)</p>
+the foot — until you erase your pistol, that is.)</p>
 
 <p>And if you <em>really</em> like a challenge, try proving that Emmental
 without <code>~</code> is Turing-complete.  I don't think that it is,
@@ -452,7 +457,7 @@ a map of symbols to strings of symbols, it's much more tractable than an
 opaque function would be; you can define all sorts of operations on them,
 for example concatenating two interpreters (for all symbols <var>s</var>
 in interpreter <var>a</var> and interpreter <var>b</var>,
-<var>c</var>[<var>s</var>] <code>&rarr;</code> <var>a</var>[<var>s</var>]<var>b</var>[<var>s</var>] &mdash;
+<var>c</var>[<var>s</var>] <code>→</code> <var>a</var>[<var>s</var>]<var>b</var>[<var>s</var>] —
 that sort of thing,) computing union or intersection of interpreters,
 Cartesian product, etc.)</p>
 
@@ -460,8 +465,8 @@ Cartesian product, etc.)</p>
 <em>multiple</em> meta-circular interpreters available inside Emmental, and symbols
 like <code>'</code> switch temporarily to an alternate MCI.  This alternate MCI
 interprets every symbol as "push this symbol", then reinstates the previous MCI.
-I like this explication better than the one above &mdash; MCIs begin
-to look a bit like continuations! &mdash; but to do it justice would take some
+I like this explication better than the one above — MCIs begin
+to look a bit like continuations! — but to do it justice would take some
 work.  I envision a language where the program has fine control
 over which MCI is in effect, possibly by keeping a map from symbols to MCIs,
 or maybe even being able to push MCIs onto the stack.
@@ -480,7 +485,7 @@ function call.</p>
 about "what is a language", I think.  Does a Pascal program fragment which
 defines a procedure called <code>PrintFibonacci</code> represent another
 programming language, one different from Pascal?  You could certainly
-say that it does &mdash; it's
+say that it does — it's
 the language Pascal where the token <code>PrintFibonacci</code> has
 some meaning that it doesn't have in Pascal.</p>
 
@@ -495,7 +500,7 @@ environment, and that environment is arguably a version of the language
 Brainfuck, suitably extended.</p>
 
 <p>You don't normally think of it that way, I bet, but you
-<em>could</em> &mdash; and you would need to, to some degree,
+<em>could</em> — and you would need to, to some degree,
 to claim that Emmental is "just" defining new functions.
 The reason you don't typically look at languages like this
 (unless you are very strange) is because it's much more useful to
@@ -522,9 +527,9 @@ the state of the program (stack &amp; queue) during execution.
 program states that occur internal to an operation.)</p>
 
 <p>Happy interpreter-redefining!
-<br>Chris Pressey
-<br>Chicago, IL
-<br>November 11, 2007</p>
+<br/>Chris Pressey
+<br/>Chicago, IL
+<br/>November 11, 2007</p>
 
 </body>
 </html>
