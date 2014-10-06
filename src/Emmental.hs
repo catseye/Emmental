@@ -1,10 +1,11 @@
 --
--- emmental.hs
+-- Emmental.hs
 -- Interpreter for the Emmental Programming Language
 -- Chris Pressey, Cat's Eye Technologies
 -- This work is in the public domain.  See UNLICENSE for more information.
 --
 
+module Emmental where
 
 import qualified Data.Map as Map
 import qualified Data.Char as Char
