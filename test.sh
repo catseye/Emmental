@@ -2,4 +2,4 @@
 
 ./build.sh || exit 1
 
-falderal tests/Emmental.markdown
+falderal --substring-error tests/Emmental.markdown
