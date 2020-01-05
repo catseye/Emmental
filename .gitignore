@@ -1,3 +1,5 @@
 *.hi
 *.o
+*.jsmod
+demo/emmental.js
 bin/*.exe
