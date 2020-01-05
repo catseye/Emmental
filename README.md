@@ -1,7 +1,11 @@
 The Emmental Programming Language
 =================================
 
-November 2007, Chris Pressey, Cat's Eye Technologies
+_Try it online_ [@ catseye.tc](https://catseye.tc/installation/Emmental)
+| _Wiki entry_ [@ esolangs.org](https://esolangs.org/wiki/Emmental)
+| _See also:_ [Mascarpone](https://github.com/catseye/Mascarpone)
+
+- - - -
 
 Introduction
 ------------
