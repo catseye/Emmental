@@ -24,7 +24,9 @@ type Symbol = Char
 
 data State = State {
     stack :: [Symbol],
-    queue :: [Symbol]
+    queue :: [Symbol],
+    getCh :: IO Char,
+    putCh :: Char -> IO ()
 }
 
 instance Show State where
@@ -129,15 +131,15 @@ opEval state interpreter =
 -- I/O.
 --
 
-opInput state interpreter = do
-    symbol <- getChar
+opInput state@State{ getCh=getCh } interpreter = do
+    symbol <- getCh
     do return (push state symbol, interpreter)
 
-opOutput state interpreter =
+opOutput state@State{ putCh=putCh } interpreter =
     let
         (symbol, state') = pop state
     in do
-        putChar symbol
+        putCh symbol
         return (state', interpreter)
 
 --
@@ -294,11 +296,19 @@ initialInterpreter = Interp
     ]
   )
 
-initialState = State [] []
+initialState = State { stack=[], queue=[], getCh=getChar, putCh=putChar }
 
 emmental string = do
     (state, interpreter) <- execute string initialState initialInterpreter debugNop
     return state
+
+emmentalWithIO getCh putCh string =
+    let
+        i = initialState
+        i' = i{ getCh=getCh, putCh=putCh }
+    in do
+        (state, interpreter) <- execute string i' initialInterpreter debugNop
+        return state
 
 debug string = do
     (state, interpreter) <- execute string initialState initialInterpreter debugPrintState
