@@ -22,26 +22,32 @@ type Symbol = Char
 -- ======================== Program States ========================= --
 -----------------------------------------------------------------------
 
-data State = State [Symbol] [Symbol]
-     deriving (Ord, Eq, Show)
+data State = State {
+    stack :: [Symbol],
+    queue :: [Symbol]
+}
 
-pop (State (head:tail) queue) = (head, State tail queue)
-push (State list queue) sym  = (State (sym:list) queue)
+instance Show State where
+    show State{ stack=stack, queue=queue } =
+        "State {stack = " ++ (show stack) ++ ", queue = " ++ (show queue) ++ "}"
 
-popString (State (';':tail) queue) = ([], State tail queue)
-popString (State (head:tail) queue) =
+pop st@State{ stack=(head:tail) } = (head, st{ stack=tail })
+push st@State{ stack=stack } sym  = st{ stack=(sym:stack) }
+
+popString st@State{ stack=(';':tail) } = ([], st{ stack=tail })
+popString st@State{ stack=(head:tail) } =
     let
-        (string, state') = popString (State tail queue)
+        (string, state') = popString st{ stack=tail }
     in
         (string ++ [head], state')
 
-enqueue (State stack queue) symbol = State stack (symbol:queue)
-dequeue (State stack queue) =
+enqueue st@State{ queue=queue } symbol = st{ queue=(symbol:queue) }
+dequeue st@State{ queue=queue } =
     let
         symbol = last queue
         queue' = init queue
     in
-        (symbol, State stack queue')
+        (symbol, st{ queue=queue' })
 
 
 -----------------------------------------------------------------------

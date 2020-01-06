@@ -20,17 +20,17 @@ Emmental Tests
 Add one and one.
 
     | #1#1+
-    = State "\STX" ""
+    = State {stack = "\STX", queue = ""}
 
 Redefine `&` as `+`. (`59,43,38 ==> ";+&"`)
 
     | ;#43#38!#1#1&
-    = State "\STX" ""
+    = State {stack = "\STX", queue = ""}
 
 Redefine `0` as `9`. (`59,57,48 ==> ";90"`)
 
     | ;#57#48!#0            
-    = State "\t" ""
+    = State {stack = "\t", queue = ""}
 
 Redefine `$` as `.#36?`.  This results in a loop that pops symbols and
 and prints them, until the stack underflows, when `$` is executed.
@@ -43,18 +43,18 @@ This shows that the `:` operation is not strictly necessary
 (when you know the size of the queue.)
 
     | #65^v
-    = State "AA" ""
+    = State {stack = "AA", queue = ""}
 
 Discard the top stack element (assuming more than one element
 on the stack, and an empty queue.)
 
     | #33#123^v-+
-    = State "!" ""
+    = State {stack = "!", queue = ""}
 
 Swap the top two elements of the stack (assuming an empty queue.)
 
     | #67#66#65^v^-+^^v^v^v-+^v-+^v-+vv
-    = State "BAC" ""
+    = State {stack = "BAC", queue = ""}
 
     -> Tests for functionality "Interpret Emmental Program"
 
