@@ -2,6 +2,8 @@ function launch(config) {
   config.container.innerHTML = `
     <textarea id="prog" rows="10" cols="80"></textarea>
     <div id="control-panel"></div>
+    <div>Input: <input id="prog-input"></input></div>
+    <div>Output: <pre id="prog-output"></pre></div>
     <div><button id="run-button">Run</button></div>
     <pre id="result"></pre>
   `;
