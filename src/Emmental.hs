@@ -7,6 +7,11 @@
 
 module Emmental where
 
+import Prelude (
+    Show, Char, IO, putStr, getChar, putChar, last, init,
+    (++), (+), (-), (*), mod, div, return, take, reverse, show
+  )
+
 import qualified Data.Map as Map
 import qualified Data.Char as Char
 
@@ -331,7 +336,7 @@ test n = debug (testProg n)
 --
 -- Here we introduce a bit of a cheat, in order to make writing
 -- complex Emmental programs tolerable.  You can still see the
--- programs in their fully glory by executing "show (testProg n)".
+-- programs in their full glory by executing "show (testProg n)".
 --
 
 quote [] = []
