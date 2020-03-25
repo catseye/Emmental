@@ -10,10 +10,10 @@ import Language.Emmental (emmentalWithIO)
 
 
 getCh :: IO Char
-getCh = ffi "(function() {var i=document.getElementById('prog-input'); var s=i.value; i.value=s.substring(1); return s.charAt(0);})"
+getCh = ffi "(function() {var i=document.getElementById('prog-input'); var s=i.value; i.value=s.substring(1); return s.charCodeAt(0);})"
 
 putCh :: Char -> IO ()
-putCh = ffi "(function(c) {var o=document.getElementById('prog-output'); var s=o.value; o.value=s+c;})"
+putCh = ffi "(function(c) {var o=document.getElementById('prog-output'); o.textContent += String.fromCharCode(c);})"
 
 main = withElems ["prog", "result", "run-button"] driver
 
