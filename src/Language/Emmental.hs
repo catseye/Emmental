@@ -5,7 +5,7 @@
 -- This work is in the public domain.  See UNLICENSE for more information.
 --
 
-module Emmental where
+module Language.Emmental where
 
 import Prelude (
     Show, Char, IO, putStr, getChar, putChar, last, init,

@@ -6,7 +6,7 @@ import Haste.DOM (withElems, getValue, setProp)
 import Haste.Events (onEvent, MouseEvent(Click))
 import Haste.Foreign (ffi)
 
-import Emmental (emmentalWithIO)
+import Language.Emmental (emmentalWithIO)
 
 
 getCh :: IO Char
