@@ -15,10 +15,14 @@ getCh = ffi "(function() {var i=document.getElementById('prog-input'); var s=i.v
 putCh :: Char -> IO ()
 putCh = ffi "(function(c) {var o=document.getElementById('prog-output'); o.textContent += String.fromCharCode(c);})"
 
+clearOutput :: IO ()
+clearOutput = ffi "(function(c) {var o=document.getElementById('prog-output'); o.textContent = '';})"
+
 main = withElems ["prog", "result", "run-button"] driver
 
 driver [progElem, resultElem, runButtonElem] =
     onEvent runButtonElem Click $ \_ -> do
         Just prog <- getValue progElem
+        clearOutput
         r <- emmentalWithIO (getCh) (putCh) prog
         setProp resultElem "textContent" $ show $ r
