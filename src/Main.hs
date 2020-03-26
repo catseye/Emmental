@@ -1,7 +1,7 @@
 module Main where
 
 import System.Environment
-import Emmental
+import Language.Emmental
 
 main = do
     args <- getArgs

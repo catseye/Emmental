@@ -1,13 +1,17 @@
 The Emmental Programming Language
 =================================
 
-November 2007, Chris Pressey, Cat's Eye Technologies
+_Try it online_ [@ catseye.tc](https://catseye.tc/installation/Emmental)
+| _Wiki entry_ [@ esolangs.org](https://esolangs.org/wiki/Emmental)
+| _See also:_ [Mascarpone](https://github.com/catseye/Mascarpone)
+
+- - - -
 
 Introduction
 ------------
 
 Emmental is a self-modifying programming language. That is not to say
-that is a language in which programs are self-modifying; rather, it is
+that it is a language in which programs are self-modifying; rather, it is
 the language itself, as defined by a meta-circular interpreter, that can
 be modified during the course of a running program. Indeed, this is how
 Emmental, without conventional conditional and repetition/recursion

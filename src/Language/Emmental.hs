@@ -5,7 +5,12 @@
 -- This work is in the public domain.  See UNLICENSE for more information.
 --
 
-module Emmental where
+module Language.Emmental where
+
+import Prelude (
+    Show, Char, IO, putStr, getChar, putChar, last, init,
+    (++), (+), (-), (*), mod, div, return, take, reverse, show
+  )
 
 import qualified Data.Map as Map
 import qualified Data.Char as Char
@@ -22,26 +27,34 @@ type Symbol = Char
 -- ======================== Program States ========================= --
 -----------------------------------------------------------------------
 
-data State = State [Symbol] [Symbol]
-     deriving (Ord, Eq, Show)
+data State = State {
+    stack :: [Symbol],
+    queue :: [Symbol],
+    getCh :: IO Char,
+    putCh :: Char -> IO ()
+}
 
-pop (State (head:tail) queue) = (head, State tail queue)
-push (State list queue) sym  = (State (sym:list) queue)
+instance Show State where
+    show State{ stack=stack, queue=queue } =
+        "State {stack = " ++ (show stack) ++ ", queue = " ++ (show queue) ++ "}"
 
-popString (State (';':tail) queue) = ([], State tail queue)
-popString (State (head:tail) queue) =
+pop st@State{ stack=(head:tail) } = (head, st{ stack=tail })
+push st@State{ stack=stack } sym  = st{ stack=(sym:stack) }
+
+popString st@State{ stack=(';':tail) } = ([], st{ stack=tail })
+popString st@State{ stack=(head:tail) } =
     let
-        (string, state') = popString (State tail queue)
+        (string, state') = popString st{ stack=tail }
     in
         (string ++ [head], state')
 
-enqueue (State stack queue) symbol = State stack (symbol:queue)
-dequeue (State stack queue) =
+enqueue st@State{ queue=queue } symbol = st{ queue=(symbol:queue) }
+dequeue st@State{ queue=queue } =
     let
         symbol = last queue
         queue' = init queue
     in
-        (symbol, State stack queue')
+        (symbol, st{ queue=queue' })
 
 
 -----------------------------------------------------------------------
@@ -123,15 +136,15 @@ opEval state interpreter =
 -- I/O.
 --
 
-opInput state interpreter = do
-    symbol <- getChar
+opInput state@State{ getCh=getCh } interpreter = do
+    symbol <- getCh
     do return (push state symbol, interpreter)
 
-opOutput state interpreter =
+opOutput state@State{ putCh=putCh } interpreter =
     let
         (symbol, state') = pop state
     in do
-        putChar symbol
+        putCh symbol
         return (state', interpreter)
 
 --
@@ -288,11 +301,19 @@ initialInterpreter = Interp
     ]
   )
 
-initialState = State [] []
+initialState = State { stack=[], queue=[], getCh=getChar, putCh=putChar }
 
 emmental string = do
     (state, interpreter) <- execute string initialState initialInterpreter debugNop
     return state
+
+emmentalWithIO getCh putCh string =
+    let
+        i = initialState
+        i' = i{ getCh=getCh, putCh=putCh }
+    in do
+        (state, interpreter) <- execute string i' initialInterpreter debugNop
+        return state
 
 debug string = do
     (state, interpreter) <- execute string initialState initialInterpreter debugPrintState
@@ -315,7 +336,7 @@ test n = debug (testProg n)
 --
 -- Here we introduce a bit of a cheat, in order to make writing
 -- complex Emmental programs tolerable.  You can still see the
--- programs in their fully glory by executing "show (testProg n)".
+-- programs in their full glory by executing "show (testProg n)".
 --
 
 quote [] = []
