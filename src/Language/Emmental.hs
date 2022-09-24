@@ -7,11 +7,6 @@
 
 module Language.Emmental where
 
-import Prelude (
-    Show, Char, IO, putStr, getChar, putChar, last, init,
-    (++), (+), (-), (*), mod, div, return, take, reverse, show
-  )
-
 import qualified Data.Map as Map
 import qualified Data.Char as Char
 
