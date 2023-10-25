@@ -3,7 +3,7 @@ The Emmental Programming Language
 
 _Try it online_ [@ catseye.tc](https://catseye.tc/installation/Emmental)
 | _Wiki entry_ [@ esolangs.org](https://esolangs.org/wiki/Emmental)
-| _See also:_ [Mascarpone](https://github.com/catseye/Mascarpone)
+| _See also:_ [Mascarpone](https://codeberg.org/catseye/Mascarpone#the-mascarpone-programming-language)
 
 - - - -
 
